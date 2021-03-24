@@ -50,7 +50,7 @@ namespace Vrnz2.ISO4217.Infrastructure.Data.Repositories.ISO4217
             {
                 InitDictionaries(iso4217);
 
-                DateTimeLastVerson = iso4217.Pblshd;
+                DateTimeLastVerson = DateTime.UtcNow.Date;
             }
         }
 

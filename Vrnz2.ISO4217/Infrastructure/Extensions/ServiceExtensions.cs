@@ -13,7 +13,7 @@ namespace Vrnz2.ISO4217.Infrastructure.Extensions
                 .MinimumLevel.Information()
                 .WriteTo.Console(Serilog.Events.LogEventLevel.Verbose, outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}", theme: AnsiConsoleTheme.Code)
                 .CreateLogger();
-            
+
             UpdateIso4217DataSource.Handler.Instance.UpdateDataSource(Log.Logger);
             UpdateIso4217DataSource.Handler.Instance.Handle(executionInterval);
 
@@ -28,6 +28,7 @@ namespace Vrnz2.ISO4217.Infrastructure.Extensions
                 .CreateLogger();
 
             UpdateIso4217DataSource.Handler.Instance.Handle(Log.Logger);
+            UpdateIso4217DataSource.Handler.Instance.Handle();
 
             return service;
         }

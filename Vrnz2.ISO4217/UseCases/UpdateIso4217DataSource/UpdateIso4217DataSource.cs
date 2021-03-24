@@ -18,17 +18,17 @@ namespace Vrnz2.ISO4217.UseCases.ReadingIso4217Source
 
         public const string Iso4217Url = "https://www.currency-iso.org/dam/downloads/lists/list_one.xml";
         public const double DefaultExecutionInterval = 86400000;
+        public const string ResourceName = "Vrnz2.ISO4217.list_one.xml";
 
         #endregion
 
         public class Handler
         {
-            public const string ResourceName = "Vrnz2.ISO4217.list_one.xml";
-
             #region Variables
 
             private static Handler _instance;
 
+            private double _executionInterval = DefaultExecutionInterval;
             private ILogger _logger = null;
             private Timer _timer;
 
@@ -65,13 +65,17 @@ namespace Vrnz2.ISO4217.UseCases.ReadingIso4217Source
             }
 
             public void Handle(double executionInterval = DefaultExecutionInterval)
-                => StartTimer(executionInterval);
+            {
+                _executionInterval = executionInterval;
 
-            private void StartTimer(double executionInterval)
+                StartTimer();
+            }
+
+            private void StartTimer()
             {
                 if (_timer.IsNull())
                 {
-                    _timer = new Timer(executionInterval);
+                    _timer = new Timer(_executionInterval);
                     _timer.Elapsed += OnTimedEvent;
                     _timer.AutoReset = true;
                     _timer.Enabled = true;
@@ -81,19 +85,30 @@ namespace Vrnz2.ISO4217.UseCases.ReadingIso4217Source
             private void OnTimedEvent(Object source, ElapsedEventArgs e)
                 => UpdateDataSource();
 
-            public void UpdateDataSource(ILogger logger)
+            public void UpdateDataSource(ILogger logger, double executionInterval = DefaultExecutionInterval)
             {
                 if (_logger.IsNull())
                     _logger = logger;
 
-                UpdateDataSource();
+                UpdateDataSource(executionInterval);
             }
 
-            public void UpdateDataSource()
+            public void UpdateDataSource(double executionInterval = DefaultExecutionInterval)
             {
                 try
                 {
                     Stream iso421XmlContent;
+
+                    _executionInterval = executionInterval;
+
+                    var lastUpdate = ISO4217Repository.Instance.DateTimeLastVerson;
+
+                    if (lastUpdate.HasValue && DateTime.UtcNow.Date <= lastUpdate.Value.AddMilliseconds(_executionInterval).Date) 
+                    {
+                        WarningLogging($"Starting ISO4217 data is up to date...");
+
+                        return;
+                    }
 
                     WarningLogging($"Starting ISO4217 data update...");
 
