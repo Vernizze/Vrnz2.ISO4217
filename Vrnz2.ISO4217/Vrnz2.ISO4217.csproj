@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.1;netcoreapp50</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Shared\Models\Xml\ISO_4217.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="list_one.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="list_one.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    <PackageReference Include="Vrnz2.Infra.Crosscutting" Version="1.0.24" />
+  </ItemGroup>
+
+</Project>
