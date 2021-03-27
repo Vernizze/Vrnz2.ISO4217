@@ -1,11 +1,14 @@
-﻿using Vrnz2.ISO4217.Infrastructure.Data.Repositories.ISO4217;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Vrnz2.ISO4217.Infrastructure.Data.Repositories.ISO4217;
 using Vrnz2.ISO4217.Shared.Models;
 
-namespace Vrnz2.ISO4217.UseCases.GetIso4217InfoByCode
+namespace Vrnz2.ISO4217.UseCases.GetIso4217InfoByNumber
 {
-    public class GetIso4217InfoByCode
+    public class GetIso4217InfoByNumber
     {
-        public class Handler 
+        public class Handler
         {
             #region Variables
 
@@ -39,11 +42,11 @@ namespace Vrnz2.ISO4217.UseCases.GetIso4217InfoByCode
 
             #region Methods
 
-            public Iso4217Definition GetDefinition(string code) 
-                => ISO4217Repository.Instance.GetIso4217DefinitionByCode(code);
+            public Iso4217Definition GetDefinition(int number)
+                => ISO4217Repository.Instance.GetIso4217DefinitionByNumber(number);
 
-            public int? GetNumber(string code)
-                => ISO4217Repository.Instance.GetIso4217NumberByCode(code);
+            public string GetCode(int number)
+                => ISO4217Repository.Instance.GetIso4217CodeByNumber(number);
 
             #endregion
         }
