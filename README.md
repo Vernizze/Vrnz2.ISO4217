@@ -62,7 +62,7 @@ We have a practical example of use, but is simple:
 
 ## Versioning
 
-1.0.1.0
+1.0.2.0
 
 
 ## Authors
