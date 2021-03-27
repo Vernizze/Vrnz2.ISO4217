@@ -39,14 +39,14 @@ We have a practical example of use, but is simple:
   - ```services.AddISO4217();```
  * With custom interval (30 seconds, p. example)
   - ```services.AddISO4217(30 * 1000);```
- * Or call the method to register in auto update ISO4217 definitions (the param 'executionInterval' is optional miliseconds value to start the update process)
-  - ```UpdateIso4217DataSource.Handler.Instance.Handle();```
-3. Search by Number:
+3. Or call the method to register in auto update ISO4217 definitions (the param 'executionInterval' is optional miliseconds value to start the update process)
+  * ```UpdateIso4217DataSource.Handler.Instance.Handle();```
+4. Search by Number:
  * -> Getting 'Iso4217Definition' object
   - ```Iso4217Definition iso4217Number971ValueByNumber = GetIso4217InfoByNumber.Handler.Instance.GetDefinition(971);```
  * -> Getting string Code value
   - ```string iso4217Number971CodeByNumber = GetIso4217InfoByNumber.Handler.Instance.GetCode(iso4217Number971ValueByNumber.Number);```
-4. Search by Code:
+5. Search by Code:
  * -> Getting 'Iso4217Definition' object
   - ```Iso4217Definition iso4217Number971ValueByCode = GetIso4217InfoByCode.Handler.Instance.GetDefinition(iso4217Number971ValueByNumber.Code);```
  * -> Getting Nullable<int> Code value
