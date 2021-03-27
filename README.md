@@ -37,7 +37,7 @@ We have a practical example of use, but is simple:
 2. Include the package to DI (if you use Microsoft.Extensions.DependencyInjection)
  * Default interval (One day)
   - ```services.AddISO4217();```
- * With custom interval (30 seconds, p. example)
+ * With custom interval (30 seconds, for example)
   - ```services.AddISO4217(30 * 1000);```
 3. Or call the method to register in auto update ISO4217 definitions (the param 'executionInterval' is optional miliseconds value to start the update process)
   * ```UpdateIso4217DataSource.Handler.Instance.Handle();```
